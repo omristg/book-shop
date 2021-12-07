@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Book Shop Project</title>
+</head>
+
+<body onload="onInit()">
+
+    <header class="main-header">
+        <h1>Book Shop</h1>
+    </header>
+
+    <main class="main-layout flex-col align-center space-enenly">
+        <table>
+            <thead>
+                <tr>
+                    <th onclick="onSortBy('id')">Id</th>
+                    <th onclick="onSortBy('name')">Title</th>
+                    <th onclick="onSortBy('price')">Price</th>
+                    <th onclick="onSortBy('rating')">rating</th>
+                    <th colspan="3">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+        <section class="browsing flex-row"> </section>
+
+        <button class="btn-create-new" onclick="onCreateNewBook()">Create new book</button>
+
+    </main>
+
+    <section class="book-details flex-col align-center space-evenly"></section>
+
+
+    <section class="create-new-book flex-col">
+        <button class="btn-exit" onclick="onCloseSubmitBookMenu()">X</button>
+        <h3>Submit new book</h3>
+
+        <label for="book-name">Book Name</label>
+        <input type="text" id="book-name" placeholder="Name">
+
+        <label for="book-price">Book Price</label>
+        <input type="number" id="book-price" min="1" placeholder="Price">
+
+        <label for="book-rating">Book Rating</label>
+        <input type="number" min="1" max="10" id="book-rating" placeholder="Rating">
+
+        <button class="submit-book" onclick="onSubmitBook()">Submit</button>
+
+    </section>
+
+    <div class="no-input-modal">
+        You have to submit values!
+    </div>
+
+    <div class="no-books-left">
+        No Books Left!
+    </div>
+
+
+
+
+    <script src="/js/sevices/utils.service.js"></script>
+    <script src="/js/sevices/storage.service.js"></script>
+    <script src="/js/sevices/books.service.js"></script>
+    <script src="/js/books.controller.js"></script>
+</body>
+
+</html>
