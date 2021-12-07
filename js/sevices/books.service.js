@@ -20,6 +20,7 @@ function goToPage(pageIdx) {
 
 function getBooks() {
     gBooks = loadFromStorage('booksDB')
+    console.log(gBooks);
     if (!gBooks || !gBooks.length) return _createBooks();
     if (gSortBy === 'id') gBooks.sort((a, b) => { return a.id - b.id })
     else if (gSortBy === 'rating') gBooks.sort((a, b) => { return a.rating - b.rating })
