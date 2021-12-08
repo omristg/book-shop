@@ -119,7 +119,7 @@ function onRead(bookId) {
 
 function renderBooks() {
     const books = getBooks();
-    if (!books) return onNoBooksInStore();
+    // if (!books) return onNoBooksInStore();
 
     const strHTMLs = books.map(book => {
         return `

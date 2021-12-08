@@ -9,7 +9,7 @@ const PAGE_SIZE = 5;
 
 
 
-// _createBooks();
+_createBooks();
 
 
 function goToPage(pageIdx) {
@@ -19,9 +19,6 @@ function goToPage(pageIdx) {
 
 
 function getBooks() {
-    gBooks = loadFromStorage('booksDB')
-    console.log(gBooks);
-    if (!gBooks || !gBooks.length) return _createBooks();
     if (gSortBy === 'id') gBooks.sort((a, b) => { return a.id - b.id })
     else if (gSortBy === 'rating') gBooks.sort((a, b) => { return a.rating - b.rating })
     else if (gSortBy === 'price') gBooks.sort((a, b) => { return a.price - b.price })
@@ -43,7 +40,7 @@ function deleteBook(bookId) {
     gBooks.splice(bookIdx, 1);
     _saveBooksToStorage();
     if (gBooks.length % PAGE_SIZE === 0) gPageIdx--;
-    
+
 }
 
 function updateBook(bookId, newPrice) {
@@ -95,7 +92,6 @@ function _createBook(newName, newPrice, newRating = 0) {
         rating: validateRating(newRating)
     }
     gBooks.push(book);
-    console.log(gBooks);
     _saveBooksToStorage();
 }
 
@@ -108,34 +104,38 @@ function toUseLate() {
     if (!book.imgUrl) book.imgUrl = alert('This book doesn\'t have an img yet')
 }
 
-
+function _loadBookFromStorage() {
+    return loadFromStorage('booksDB')
+}
 
 function _createBooks() {
-
-    gNextId = 1;
-    gBooks = [
-        {
-            id: gNextId++,
-            name: 'Harry Potter',
-            price: 53.07,
-            imgUrl: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9780/5903/9780590353427.jpg',
-            rating: getRandomInt(0, 11)
-        },
-        {
-            id: gNextId++,
-            name: 'The Hobbit',
-            price: 96.56,
-            imgUrl: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9780/2611/9780261103283.jpg',
-            rating: getRandomInt(0, 11)
-        },
-        {
-            id: gNextId++,
-            name: 'Dune',
-            price: 97.72,
-            imgUrl: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9781/4732/9781473233959.jpg',
-            rating: getRandomInt(0, 11)
-        }
-    ]
+    gBooks = _loadBookFromStorage();
+    if (!gBooks || !gBooks.length) {
+        gNextId = 1;
+        gBooks = [
+            {
+                id: gNextId++,
+                name: 'Harry Potter',
+                price: 53.07,
+                imgUrl: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9780/5903/9780590353427.jpg',
+                rating: getRandomInt(0, 11)
+            },
+            {
+                id: gNextId++,
+                name: 'The Hobbit',
+                price: 96.56,
+                imgUrl: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9780/2611/9780261103283.jpg',
+                rating: getRandomInt(0, 11)
+            },
+            {
+                id: gNextId++,
+                name: 'Dune',
+                price: 97.72,
+                imgUrl: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9781/4732/9781473233959.jpg',
+                rating: getRandomInt(0, 11)
+            }
+        ]
+    }
 
     gNextId = gBooks[gBooks.length - 1].id + 1;
     _saveBooksToStorage();
